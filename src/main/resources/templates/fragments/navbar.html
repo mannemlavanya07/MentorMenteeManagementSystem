@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head></head>
+<body>
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark navbar-custom py-3 sticky-top">
+    <div class="container">
+        <!-- Brand Logo & Title -->
+        <a class="navbar-brand d-flex align-items-center gap-2" th:href="@{/}">
+            <span class="bg-primary text-white rounded-3 p-2 d-inline-flex align-items-center justify-content-center shadow-sm" style="width: 38px; height: 38px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-mortarboard-fill" viewBox="0 0 16 16">
+                    <path d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 0 .906l7.5 3.5a.5.5 0 0 0 .422 0l7.5-3.5a.5.5 0 0 0 0-.906l-7.5-3.5z"/>
+                    <path d="M4.179 9.129 1 7.643V11a1 1 0 0 0 1 1h2.5a.5.5 0 0 0 .5-.5V9.349a.5.5 0 0 0-.821-.38z"/>
+                    <path d="M12.821 9.129 16 7.643V11a1 1 0 0 1-1 1h-2.5a.5.5 0 0 1-.5-.5V9.349a.5.5 0 0 1 .821-.38z"/>
+                </svg>
+            </span>
+            <span>MentorMentee</span>
+        </a>
+
+        <!-- Mobile Toggler -->
+        <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar Links & Navigation Buttons -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+                <!-- Home Link -->
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}" th:classappend="${#httpServletRequest != null and #httpServletRequest.requestURI == '/' ? 'active' : ''}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door me-1" viewBox="0 0 16 16">
+                            <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-4h3v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 7.5V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
+                        </svg>
+                        Home
+                    </a>
+                </li>
+
+                <!-- Mentor authenticated navigation -->
+                <li class="nav-item" sec:authorize="hasAuthority('ROLE_MENTOR')">
+                    <a class="nav-link text-info fw-bold" th:href="@{/mentor/dashboard}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-speedometer2 me-1" viewBox="0 0 16 16">
+                            <path d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4zM3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.268a.5.5 0 0 1 0 .707l-.914.915a.5.5 0 1 1-.707-.708l.914-.914a.5.5 0 0 1 .707 0zM8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+                            <path d="M10 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"/>
+                        </svg>
+                        Mentor Dashboard
+                    </a>
+                </li>
+
+                <!-- Mentee authenticated navigation -->
+                <li class="nav-item" sec:authorize="hasAuthority('ROLE_MENTEE')">
+                    <a class="nav-link text-info fw-bold" th:href="@{/mentee/dashboard}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-speedometer2 me-1" viewBox="0 0 16 16">
+                            <path d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4z"/>
+                        </svg>
+                        Mentee Dashboard
+                    </a>
+                </li>
+                <li class="nav-item" sec:authorize="hasAuthority('ROLE_MENTEE')">
+                    <a class="nav-link" th:href="@{/mentee/profile}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle me-1" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                        </svg>
+                        My Profile
+                    </a>
+                </li>
+
+                <!-- Anonymous Quick Access Dropdowns -->
+                <li class="nav-item dropdown" sec:authorize="isAnonymous()">
+                    <a class="nav-link dropdown-toggle" href="#" id="mentorMenu" role="button" data-bs-toggle="dropdown">
+                        Faculty Mentor
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark border-0 shadow-lg" aria-labelledby="mentorMenu">
+                        <li><a class="dropdown-item py-2" th:href="@{/mentor/login}">Mentor Login &rarr;</a></li>
+                        <li><a class="dropdown-item py-2" th:href="@{/mentor/signup}">Mentor Registration &rarr;</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown" sec:authorize="isAnonymous()">
+                    <a class="nav-link dropdown-toggle" href="#" id="menteeMenu" role="button" data-bs-toggle="dropdown">
+                        Student Mentee
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark border-0 shadow-lg" aria-labelledby="menteeMenu">
+                        <li><a class="dropdown-item py-2" th:href="@{/mentee/login}">Mentee Login &rarr;</a></li>
+                        <li><a class="dropdown-item py-2" th:href="@{/mentee/signup}">Mentee Registration &rarr;</a></li>
+                    </ul>
+                </li>
+
+                <!-- Direct Action Buttons -->
+                <li class="nav-item ms-lg-2 mt-2 mt-lg-0" sec:authorize="isAnonymous()">
+                    <a th:href="@{/mentee/login}" class="nav-pill-btn nav-pill-btn-primary">
+                        Quick Login &rarr;
+                    </a>
+                </li>
+
+                <!-- Authenticated Logout -->
+                <li class="nav-item ms-lg-2" sec:authorize="isAuthenticated()">
+                    <form th:action="@{/logout}" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-outline-light btn-sm rounded-pill px-3 py-1 fw-bold">
+                            Logout
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

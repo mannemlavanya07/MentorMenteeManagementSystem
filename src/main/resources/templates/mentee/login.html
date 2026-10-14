@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentee Login - Mentor Mentee Management System</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navbar Fragment -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                
+                <!-- Role Switcher Navigation Bar -->
+                <div class="role-toggle-tabs">
+                    <a th:href="@{/mentor/login}" class="role-toggle-tab">
+                        Faculty Mentor Login
+                    </a>
+                    <a th:href="@{/mentee/login}" class="role-toggle-tab active">
+                        Student Mentee Login
+                    </a>
+                </div>
+
+                <div class="form-card border-top border-info border-4">
+                    <div class="text-center mb-4">
+                        <span class="badge bg-info px-3 py-2 rounded-pill font-weight-bold mb-2">Student Portal</span>
+                        <h2 class="fw-bold text-dark mb-1">Mentee Sign In</h2>
+                        <p class="text-muted small mb-0">Enter your credentials to update skills & view your mentor</p>
+                    </div>
+
+                    <!-- Alerts -->
+                    <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show rounded-3" role="alert">
+                        <span th:text="${errorMessage}">Invalid username or password</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+
+                    <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show rounded-3" role="alert">
+                        <span th:text="${successMessage}">Registration successful</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+
+                    <form th:action="@{/login}" method="post">
+                        <!-- Hidden role field for success handler verification -->
+                        <input type="hidden" name="loginType" value="mentee" />
+
+                        <div class="mb-3">
+                            <label for="username" class="form-label fw-bold text-dark">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="e.g. anjali" required autofocus>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="password" class="form-label fw-bold text-dark">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary-custom w-100 py-3 fs-6 mb-3" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);">
+                            Sign In to Mentee Portal &rarr;
+                        </button>
+                    </form>
+
+                    <!-- Navigation Shortcuts -->
+                    <div class="text-center mt-3 border-top pt-3">
+                        <p class="text-muted small mb-2">Don't have a mentee account? <a th:href="@{/mentee/signup}" class="text-info fw-bold text-decoration-none">Register Here &rarr;</a></p>
+                        <p class="text-muted small mb-0">Are you a faculty member? <a th:href="@{/mentor/login}" class="text-primary fw-bold text-decoration-none">Switch to Mentor Login</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Fragment -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{/js/script.js}"></script>
+</body>
+</html>

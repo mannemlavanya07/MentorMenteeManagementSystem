@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentee Profile View - Mentor Mentee Management System</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navbar Fragment -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main class="container my-5">
+        
+        <!-- Breadcrumb & Toolbar Navigation -->
+        <div class="quick-toolbar">
+            <nav aria-label="breadcrumb" class="mb-0">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a th:href="@{/}" class="text-decoration-none">Home</a></li>
+                    <li class="breadcrumb-item"><a th:href="@{/mentor/dashboard}" class="text-decoration-none">Mentor Dashboard</a></li>
+                    <li class="breadcrumb-item active" aria-current="page" th:text="${mentee.rollNo}">23A81A0501</li>
+                </ol>
+            </nav>
+            <div>
+                <!-- Navigation Button Back to Dashboard -->
+                <a th:href="@{/mentor/dashboard}" class="btn btn-outline-secondary btn-sm fw-bold rounded-pill px-3">
+                    &larr; Back to Mentor Dashboard
+                </a>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- Sidebar Student Summary Card -->
+            <div class="col-lg-4">
+                <div class="card custom-card p-4 text-center h-100">
+                    <div class="bg-info text-white rounded-circle p-3 mx-auto mb-3 d-inline-flex align-items-center justify-content-center shadow-sm" style="width: 80px; height: 80px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                        </svg>
+                    </div>
+                    <h3 class="fw-bold text-dark mb-1" th:text="${mentee.name}">Student Name</h3>
+                    <span class="badge bg-primary fs-6 mb-3 d-inline-block" th:text="${mentee.rollNo}">23A81A0501</span>
+
+                    <div class="text-start border-top pt-3">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Department:</span>
+                            <strong th:text="${mentee.department}">CSE</strong>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Year of Study:</span>
+                            <strong th:text="'Year ' + ${mentee.year}">Year 3</strong>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Email:</span>
+                            <strong class="small text-truncate" style="max-width: 180px;" th:text="${mentee.email}">student@example.com</strong>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Phone:</span>
+                            <strong th:text="${mentee.phone}">9876543210</strong>
+                        </div>
+                    </div>
+
+                    <!-- Quick Navigation Button -->
+                    <div class="mt-4">
+                        <a th:href="@{/mentor/dashboard}" class="btn btn-outline-custom w-100 py-2">
+                            &larr; Return to Mentees Table
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Details Main Section -->
+            <div class="col-lg-8">
+                <div class="card custom-card p-4">
+                    <h4 class="fw-bold text-dark mb-4 border-bottom pb-2 d-flex align-items-center justify-content-between">
+                        <span>Academic & Skill Details</span>
+                        <span class="badge bg-light text-dark border">Read-Only Mode</span>
+                    </h4>
+
+                    <!-- Coding Profiles External Action Links -->
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded-3 border">
+                                <small class="text-muted fw-bold d-block text-uppercase mb-1">LeetCode Profile</small>
+                                <div th:if="${#strings.isEmpty(mentee.leetcodeUrl)}" class="text-muted italic small">Not provided by student</div>
+                                <div th:if="${not #strings.isEmpty(mentee.leetcodeUrl)}">
+                                    <a th:href="${mentee.leetcodeUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary-custom w-100 mt-1">
+                                        Open LeetCode Profile &nearr;
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded-3 border">
+                                <small class="text-muted fw-bold d-block text-uppercase mb-1">GitHub Profile</small>
+                                <div th:if="${#strings.isEmpty(mentee.githubUrl)}" class="text-muted italic small">Not provided by student</div>
+                                <div th:if="${not #strings.isEmpty(mentee.githubUrl)}">
+                                    <a th:href="${mentee.githubUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-dark w-100 mt-1">
+                                        Open GitHub Profile &nearr;
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Strengths -->
+                    <div class="mb-4">
+                        <h6 class="fw-bold text-success d-flex align-items-center gap-1">
+                            ✓ Strengths & Technical Skills
+                        </h6>
+                        <div class="p-3 bg-light rounded-3 border" th:text="${#strings.isEmpty(mentee.strengths) ? 'No strengths recorded by student.' : mentee.strengths}">Strengths list...</div>
+                    </div>
+
+                    <!-- Weaknesses -->
+                    <div class="mb-4">
+                        <h6 class="fw-bold text-warning d-flex align-items-center gap-1">
+                            ⚠ Areas for Improvement / Weaknesses
+                        </h6>
+                        <div class="p-3 bg-light rounded-3 border" th:text="${#strings.isEmpty(mentee.weaknesses) ? 'No weaknesses recorded by student.' : mentee.weaknesses}">Weaknesses list...</div>
+                    </div>
+
+                    <!-- Achievements -->
+                    <div class="mb-4">
+                        <h6 class="fw-bold text-primary d-flex align-items-center gap-1">
+                            ★ Achievements & Certifications
+                        </h6>
+                        <div class="p-3 bg-light rounded-3 border" th:text="${#strings.isEmpty(mentee.achievements) ? 'No achievements recorded by student.' : mentee.achievements}">Achievements list...</div>
+                    </div>
+
+                    <!-- Reported Issues -->
+                    <div class="mb-3">
+                        <h6 class="fw-bold text-danger d-flex align-items-center gap-1">
+                            ✉ Reported Issues / Queries for Mentor
+                        </h6>
+                        <div class="p-3 bg-light rounded-3 border" th:text="${#strings.isEmpty(mentee.issues) ? 'No issues reported.' : mentee.issues}">Issues list...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Fragment -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{/js/script.js}"></script>
+</body>
+</html>

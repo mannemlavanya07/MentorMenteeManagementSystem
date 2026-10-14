@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+<footer th:fragment="footer" class="mt-auto">
+    <div class="container py-4">
+        <div class="row g-4 align-items-center">
+            <div class="col-md-6 text-center text-md-start">
+                <h5 class="fw-bold text-white mb-2 d-flex align-items-center gap-2 justify-content-center justify-content-md-start">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-mortarboard-fill text-primary" viewBox="0 0 16 16">
+                        <path d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 0 .906l7.5 3.5a.5.5 0 0 0 .422 0l7.5-3.5a.5.5 0 0 0 0-.906l-7.5-3.5z"/>
+                        <path d="M4.179 9.129 1 7.643V11a1 1 0 0 0 1 1h2.5a.5.5 0 0 0 .5-.5V9.349a.5.5 0 0 0-.821-.38z"/>
+                    </svg>
+                    Mentor–Mentee Management System
+                </h5>
+                <p class="small text-muted mb-0">Empowering college students and faculty through structured guidance, skill tracking, and academic mentorship.</p>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+                <div class="d-flex gap-3 justify-content-center justify-content-md-end flex-wrap mb-2">
+                    <a th:href="@{/}" class="text-light text-decoration-none small hover-sky">Home</a>
+                    <a th:href="@{/mentor/login}" class="text-light text-decoration-none small hover-sky">Faculty Portal</a>
+                    <a th:href="@{/mentee/login}" class="text-light text-decoration-none small hover-sky">Student Portal</a>
+                </div>
+                <small class="text-secondary opacity-75">&copy; 2026 Academic MentorMentee System. Built with Java Spring Boot & MySQL.</small>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
